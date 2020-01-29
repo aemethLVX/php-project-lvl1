@@ -1,0 +1,14 @@
+{
+    "name": "aemeth/hexlet-php-project-lvl1",
+    "description": "Hexlet PHP project level 1",
+    "authors": [
+        {
+            "name": "Aemeth",
+            "email": "aemeth.lvx@gmail.com"
+        }
+    ],
+    "bin": [
+    	"bin/brain-games"
+    ],
+    "require": {}
+}
