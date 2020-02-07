@@ -1,26 +1,6 @@
 #!/usr/bin/env php
 
 <?php
-$autoloadPath1 = __DIR__ . '/../../../autoload.php';
-$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
-if (file_exists($autoloadPath1)) {
-    require_once $autoloadPath1;
-} else {
-    require_once $autoloadPath2;
-}
 
-$error = false;
-$questionsQ = 3;
-$randFrom = 1;
-$randTo = 100;
-$name = BrainGames\Cli\welcome();
-
-for ($i = 0; $i < $questionsQ; ++$i) {
-    $num = rand($randFrom, $randTo);
-    if (!BrainGames\Cli\checkNumber($num)) {
-    	$error = true;
-    	break;
-    }
-}
-
-BrainGames\Cli\showResult($error, $name);
+require __DIR__ . '/../src/Autoload.php';
+BrainGames\Games\BrainEven\run();
