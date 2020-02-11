@@ -2,17 +2,17 @@
 
 namespace BrainGames\Games\BrainEven;
 
-function run()
+function run($questions, $randFrom, $randTo)
 {
     $error = false;
-    $questionsQ = 3;
-    $randFrom = 1;
-    $randTo = 100;
-    $name = \BrainGames\Cli\welcome();
+    $name = \BrainGames\Cli\welcome('Answer "yes" if the number is even, otherwise answer "no".');
 
-    for ($i = 0; $i < $questionsQ; ++$i) {
+    for ($i = 0; $i < $questions; ++$i) {
         $num = rand($randFrom, $randTo);
-        if (!\BrainGames\Cli\checkNumber($num)) {
+        $result = \BrainGames\Cli\isEven($num);
+        $answer = \BrainGames\Cli\getAnswer($num);
+
+        if (!\BrainGames\Cli\checkAnswer($answer, $result)) {
             $error = true;
             break;
         }

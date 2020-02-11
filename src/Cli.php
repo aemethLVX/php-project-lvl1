@@ -14,10 +14,28 @@ function isEven(int $num)
     }
 }
 
-function welcome()
+function getOperations()
 {
-    line('Welcome to Brain Games!');
-    line('Answer "yes" if the number is even, otherwise answer "no".');
+    return ['+', '-', '*'];
+}
+
+function calc(int $first, int $second, int $type)
+{
+    $operations = getOperations();
+    switch ($operations[$type]) {
+        case '+':
+            return $first + $second;
+        case '-':
+            return $first - $second;
+        case '*':
+            return $first * $second;
+    }
+}
+
+function welcome($rules)
+{
+    line('Welcome to the Brain Games!');
+    line($rules);
     line('');
     $name = prompt('May I have your name?');
     line("Hello, %s!", $name);
@@ -25,17 +43,19 @@ function welcome()
     return $name;
 }
 
-function checkNumber(int $num)
+function getAnswer($question)
 {
-    line("Question: {$num}");
-    $answer = prompt('Your answer');
+    line("Question: {$question}");
+    return prompt('Your answer');
+}
 
-    if ($answer === isEven($num)) {
+function checkAnswer($answer, $result)
+{
+    if ($answer == $result) {
         line('Correct!');
         return true;
     } else {
-        $correctAnswer = isEven($num);
-        line("'{$answer}' is wrong answer ;(. Correct answer was '{$correctAnswer}'.");
+        line("'{$answer}' is wrong answer ;(. Correct answer was '{$result}'.");
         return false;
     }
 }
