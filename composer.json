@@ -10,7 +10,8 @@
     ],
     "license": "MIT",
     "bin": [
-    	"bin/brain-even"
+    	"bin/brain-even",
+        "bin/brain-calc",
     ],
     "scripts": {
         "phpcs": "phpcs"
