@@ -14,11 +14,6 @@ function isEven(int $num)
     }
 }
 
-function getOperations()
-{
-    return ['+', '-', '*'];
-}
-
 function calc(int $first, int $second, int $type)
 {
     $operations = getOperations();
@@ -30,6 +25,18 @@ function calc(int $first, int $second, int $type)
         case '*':
             return $first * $second;
     }
+}
+
+function gcd($a, $b)
+{
+    while ($a != $b) {
+        if ($a > $b) {
+            $a -= $b;
+        } else {
+            $b -= $a;
+        }
+    }
+    return $a;
 }
 
 function welcome($rules)
@@ -67,4 +74,9 @@ function showResult($error, $name)
     } else {
         line("Congratulations, {$name}!");
     }
+}
+
+function getOperations()
+{
+    return ['+', '-', '*'];
 }
