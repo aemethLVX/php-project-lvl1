@@ -39,6 +39,15 @@ function gcd($a, $b)
     return $a;
 }
 
+function getProgression($start, $length, $step)
+{
+    $result = [];
+    for ($i = 0, $a = $start; $i < $length; ++$i, $a += $step) {
+        $result[] = $a;
+    }
+    return $result;
+}
+
 function welcome($rules)
 {
     line('Welcome to the Brain Games!');
