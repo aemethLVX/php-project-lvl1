@@ -27,7 +27,7 @@ function calc(int $first, int $second, int $type)
     }
 }
 
-function gcd($a, $b)
+function gcd(int $a, int $b)
 {
     while ($a != $b) {
         if ($a > $b) {
@@ -39,7 +39,7 @@ function gcd($a, $b)
     return $a;
 }
 
-function getProgression($start, $length, $step)
+function getProgression(int $start, int $length, int $step)
 {
     $result = [];
     for ($i = 0, $a = $start; $i < $length; ++$i, $a += $step) {
@@ -48,7 +48,17 @@ function getProgression($start, $length, $step)
     return $result;
 }
 
-function welcome($rules)
+function isPrime(int $num)
+{
+    for ($x = 2; $x <= sqrt($num); ++$x) {
+        if ($num % $x == 0) {
+            return 'no';
+        }
+    }
+    return 'yes';
+}
+
+function welcome(string $rules)
 {
     line('Welcome to the Brain Games!');
     line($rules);
@@ -59,13 +69,13 @@ function welcome($rules)
     return $name;
 }
 
-function getAnswer($question)
+function getAnswer(string $question)
 {
     line("Question: {$question}");
     return prompt('Your answer');
 }
 
-function checkAnswer($answer, $result)
+function checkAnswer(string $answer, string $result)
 {
     if ($answer == $result) {
         line('Correct!');
@@ -76,7 +86,7 @@ function checkAnswer($answer, $result)
     }
 }
 
-function showResult($error, $name)
+function showResult(bool $error, string $name)
 {
     if ($error) {
         line("Let's try again, {$name}!");
