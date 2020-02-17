@@ -5,16 +5,15 @@ namespace BrainGames\Games\BrainPrime;
 function run($try, $from, $to)
 {
     $error = false;
-    $name = \BrainGames\Cli\welcome(
-        'Answer "yes" if given number is prime. Otherwise answer "no".'
-    );
+    $welcomeMessage = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+    $name = \BrainGames\Cli\welcome($welcomeMessage);
 
     for ($i = 0; $i < $try; ++$i) {
         $num = rand($from, $to);
-        $result = \BrainGames\Cli\isPrime($num);
+        $res = \BrainGames\Cli\isPrime($num);
         $answer = \BrainGames\Cli\getAnswer($num);
 
-        if (!\BrainGames\Cli\checkAnswer($answer, $result)) {
+        if (!\BrainGames\Cli\checkAnswer($answer, $res)) {
             $error = true;
             break;
         }
