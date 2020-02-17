@@ -2,10 +2,11 @@
 
 namespace BrainGames\Games\BrainProgression;
 
-function run($questions, $length, $step, $randFrom, $randTo)
+function run($questions, $step, $randFrom, $randTo)
 {
     $error = false;
     $name = \BrainGames\Cli\welcome('What number is missing in the progression?');
+    $length = 10;
 
     for ($i = 0; $i < $questions; ++$i) {
         $start = rand($randFrom, $randTo);
