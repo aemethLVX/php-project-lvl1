@@ -8,10 +8,10 @@ function run($try, $from, $to)
     $welcomeMessage = 'Answer "yes" if given number is prime. Otherwise answer "no".';
     $name = \BrainGames\Cli\welcome($welcomeMessage);
 
-    for ($i = 0; $i < $try; ++$i) {
+    for ($i = 0; $i < $try; $i++) {
         $num = rand($from, $to);
-        $res = \BrainGames\Cli\isPrime($num);
         $answer = \BrainGames\Cli\getAnswer($num);
+        $res = \BrainGames\Cli\isPrime($num);
 
         if (!\BrainGames\Cli\checkAnswer($answer, $res)) {
             $error = true;
