@@ -5,7 +5,9 @@ namespace BrainGames\Games\BrainPrime;
 function run($try, $from, $to)
 {
     $error = false;
-    $name = \BrainGames\Cli\welcome('Answer "yes" if given number is prime. Otherwise answer "no".');
+    $name = \BrainGames\Cli\welcome(
+        'Answer "yes" if given number is prime. Otherwise answer "no".'
+    );
 
     for ($i = 0; $i < $try; ++$i) {
         $num = rand($from, $to);
