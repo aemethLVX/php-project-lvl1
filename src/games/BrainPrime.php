@@ -2,12 +2,12 @@
 
 namespace BrainGames\Games\BrainPrime;
 
-function run($questions, $from, $to)
+function run($try, $from, $to)
 {
     $error = false;
     $name = \BrainGames\Cli\welcome('Answer "yes" if given number is prime. Otherwise answer "no".');
 
-    for ($i = 0; $i < $questions; ++$i) {
+    for ($i = 0; $i < $try; ++$i) {
         $num = rand($from, $to);
         $result = \BrainGames\Cli\isPrime($num);
         $answer = \BrainGames\Cli\getAnswer($num);
