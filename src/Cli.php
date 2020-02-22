@@ -5,61 +5,28 @@ namespace BrainGames\Cli;
 use function cli\line;
 use function cli\prompt;
 
-function isEven(int $num)
+function run(string $message, string $game)
 {
-    if ($num % 2 === 0) {
-        return 'yes';
-    } else {
-        return 'no';
-    }
-}
+    $error = false;
+    $conf = \BrainGames\Conf\get();
+    $name = welcome($message);
+    $step = "$game\\step";
 
-function calc(int $first, int $second, int $type)
-{
-    $operations = getOperations();
-    switch ($operations[$type]) {
-        case '+':
-            return $first + $second;
-        case '-':
-            return $first - $second;
-        case '*':
-            return $first * $second;
-    }
-}
-
-function gcd(int $a, int $b)
-{
-    while ($a != $b) {
-        if ($a > $b) {
-            $a -= $b;
-        } else {
-            $b -= $a;
+    for ($i = 0; $i < $conf['try']; ++$i) {
+        $result = $step($conf);
+        $userAnswer = getAnswer($result['question']);
+        if (!checkAnswer($userAnswer, $result['answer'])) {
+            $error = true;
+            break;
         }
     }
-    return $a;
-}
 
-function getProgression(int $start, int $length, int $step)
-{
-    $result = [];
-    for ($i = 0, $a = $start; $i < $length; ++$i, $a += $step) {
-        $result[] = $a;
-    }
-    return $result;
-}
-
-function isPrime(int $num)
-{
-    for ($x = 2; $x <= sqrt($num); ++$x) {
-        if ($num % $x == 0) {
-            return 'no';
-        }
-    }
-    return 'yes';
+    showResult($error, $name);
 }
 
 function welcome(string $rules)
 {
+
     line('Welcome to the Brain Games!');
     line($rules);
     line('');
@@ -93,9 +60,4 @@ function showResult(bool $error, string $name)
     } else {
         line("Congratulations, {$name}!");
     }
-}
-
-function getOperations()
-{
-    return ['+', '-', '*'];
 }

@@ -1,7 +1,7 @@
 {
     "name": "aemeth/hexlet-php-project-lvl1", 
     "description": "Hexlet PHP project level 1",
-    "type": "library",
+    "type": "project",
     "authors": [
         {
             "name": "Aemeth",
@@ -27,6 +27,7 @@
     },
     "autoload": {
         "files": [
+            "src/Conf.php",
             "src/Cli.php",
             "src/games/BrainEven.php",
             "src/games/BrainCalc.php",

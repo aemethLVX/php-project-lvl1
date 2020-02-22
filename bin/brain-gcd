@@ -3,4 +3,4 @@
 <?php
 
 require __DIR__ . '/../src/Autoload.php';
-\BrainGames\Games\BrainGcd\run(3, 1, 50);
+\BrainGames\Games\BrainGcd\run();

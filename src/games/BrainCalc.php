@@ -2,26 +2,41 @@
 
 namespace BrainGames\Games\BrainCalc;
 
-function run($questions, $randFrom, $randTo)
+function run()
 {
-    $error = false;
-    $name = \BrainGames\Cli\welcome('What is the result of the expression?');
+    $message = 'What is the result of the expression?';
+    \BrainGames\Cli\run($message, __NAMESPACE__);
+}
 
-    for ($i = 0; $i < $questions; ++$i) {
-        $code = rand(0, 2);
-        $first = rand($randFrom, $randTo);
-        $second = rand($randFrom, $randTo);
-        $operations = \BrainGames\Cli\getOperations();
-
-        $question = "{$first} {$operations[$code]} {$second}";
-        $result = \BrainGames\Cli\calc($first, $second, $code);
-        $answer = \BrainGames\Cli\getAnswer($question);
-
-        if (!\BrainGames\Cli\checkAnswer($answer, $result)) {
-            $error = true;
-            break;
-        }
+function calc(int $first, int $second, int $type)
+{
+    $operations = getOperations();
+    switch ($operations[$type]) {
+        case '+':
+            return $first + $second;
+        case '-':
+            return $first - $second;
+        case '*':
+            return $first * $second;
     }
+}
 
-    \BrainGames\Cli\showResult($error, $name);
+function getOperations()
+{
+    return ['+', '-', '*'];
+}
+
+function step(array $conf)
+{
+    $first = rand($conf['from'], $conf['to']);
+    $second = rand($conf['from'], $conf['to']);
+    $operations = getOperations();
+    $code = rand(0, count($operations) - 1);
+
+    $question = "{$first} {$operations[$code]} {$second}";
+    $answer = calc($first, $second, $code);
+    return [
+        'question' => $question,
+        'answer' => $answer
+    ];
 }

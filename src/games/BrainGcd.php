@@ -2,24 +2,32 @@
 
 namespace BrainGames\Games\BrainGcd;
 
-function run($questions, $randFrom, $randTo)
+function run()
 {
-    $error = false;
-    $name = \BrainGames\Cli\welcome('Find the greatest common divisor of given numbers.');
+    $message = 'Find the greatest common divisor of given numbers.';
+    \BrainGames\Cli\run($message, __NAMESPACE__);
+}
 
-    for ($i = 0; $i < $questions; ++$i) {
-        $first = rand($randFrom, $randTo);
-        $second = rand($randFrom, $randTo);
-
-        $question = "{$first} {$second}";
-        $result = \BrainGames\Cli\gcd($first, $second);
-        $answer = \BrainGames\Cli\getAnswer($question);
-
-        if (!\BrainGames\Cli\checkAnswer($answer, $result)) {
-            $error = true;
-            break;
+function gcd(int $a, int $b)
+{
+    while ($a != $b) {
+        if ($a > $b) {
+            $a -= $b;
+        } else {
+            $b -= $a;
         }
     }
+    return $a;
+}
 
-    \BrainGames\Cli\showResult($error, $name);
+function step(array $conf)
+{
+    $first = rand($conf['from'], $conf['to']);
+    $second = rand($conf['from'], $conf['to']);
+    $question = "{$first} {$second}";
+    $answer = gcd($first, $second);
+    return [
+        'question' => $question,
+        'answer' => $answer
+    ];
 }

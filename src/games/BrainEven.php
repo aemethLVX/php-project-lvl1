@@ -2,21 +2,27 @@
 
 namespace BrainGames\Games\BrainEven;
 
-function run($questions, $randFrom, $randTo)
+function run()
 {
-    $error = false;
-    $name = \BrainGames\Cli\welcome('Answer "yes" if the number is even, otherwise answer "no".');
+    $message = 'Answer "yes" if the number is even, otherwise answer "no".';
+    \BrainGames\Cli\run($message, __NAMESPACE__);
+}
 
-    for ($i = 0; $i < $questions; ++$i) {
-        $num = rand($randFrom, $randTo);
-        $result = \BrainGames\Cli\isEven($num);
-        $answer = \BrainGames\Cli\getAnswer($num);
-
-        if (!\BrainGames\Cli\checkAnswer($answer, $result)) {
-            $error = true;
-            break;
-        }
+function isEven(int $num)
+{
+    if ($num % 2 === 0) {
+        return 'yes';
+    } else {
+        return 'no';
     }
+}
 
-    \BrainGames\Cli\showResult($error, $name);
+function step(array $conf)
+{
+    $question = rand($conf['from'], $conf['to']);
+    $answer = isEven($question);
+    return [
+        'question' => $question,
+        'answer' => $answer
+    ];
 }
