@@ -6,7 +6,7 @@ use function BrainGames\Cli\execute;
 
 function run()
 {
-    $message = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+    $message = 'Answer "yes" if the number is prime, otherwise answer "no".';
 
     $step = function ($conf) {
         $question = rand($conf['from'], $conf['to']);
@@ -28,14 +28,4 @@ function isPrime(int $num)
         }
     }
     return true;
-}
-
-function step(array $conf)
-{
-    $question = rand($conf['from'], $conf['to']);
-    $answer = isPrime($question) ? 'yes' : 'no';
-    return [
-        'question' => $question,
-        'answer' => $answer
-    ];
 }
