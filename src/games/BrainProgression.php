@@ -2,7 +2,7 @@
 
 namespace BrainGames\Games\BrainProgression;
 
-use function \BrainGames\Cli\execute;
+use function BrainGames\Cli\execute;
 
 function run()
 {
