@@ -6,9 +6,9 @@ use function BrainGames\Cli\execute;
 
 function run()
 {
-    $message = 'Answer "yes" if the number is even, otherwise answer "no".';
+    $mes = 'Answer "yes" if the number is even, otherwise answer "no".';
 
-    $step = function ($conf) {
+    $try = function ($conf) {
         $question = rand($conf['from'], $conf['to']);
         $answer = isEven($question) ? 'yes' : 'no';
         return [
@@ -17,7 +17,7 @@ function run()
         ];
     };
 
-    execute($message, $step);
+    execute($message, $mes);
 }
 
 function isEven(int $num)
