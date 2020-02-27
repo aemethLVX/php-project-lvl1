@@ -2,16 +2,32 @@
 
 namespace BrainGames\Games\BrainCalc;
 
+use function \BrainGames\Cli\execute;
+
 function run()
 {
     $message = 'What is the result of the expression?';
-    \BrainGames\Cli\run($message, __NAMESPACE__);
+
+    $step = function ($conf) {
+        $first = rand($conf['from'], $conf['to']);
+        $second = rand($conf['from'], $conf['to']);
+        $operations = ['+', '-', '*'];
+        $type = $operations[rand(0, count($operations) - 1)];
+
+        $question = "{$first} {$type} {$second}";
+        $answer = calc($first, $second, $type);
+        return [
+            'question' => $question,
+            'answer' => $answer
+        ];
+    };
+
+    execute($message, $step);
 }
 
-function calc(int $first, int $second, int $type)
+function calc(int $first, int $second, string $type)
 {
-    $operations = getOperations();
-    switch ($operations[$type]) {
+    switch ($type) {
         case '+':
             return $first + $second;
         case '-':
@@ -19,24 +35,4 @@ function calc(int $first, int $second, int $type)
         case '*':
             return $first * $second;
     }
-}
-
-function getOperations()
-{
-    return ['+', '-', '*'];
-}
-
-function step(array $conf)
-{
-    $first = rand($conf['from'], $conf['to']);
-    $second = rand($conf['from'], $conf['to']);
-    $operations = getOperations();
-    $code = rand(0, count($operations) - 1);
-
-    $question = "{$first} {$operations[$code]} {$second}";
-    $answer = calc($first, $second, $code);
-    return [
-        'question' => $question,
-        'answer' => $answer
-    ];
 }

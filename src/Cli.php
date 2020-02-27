@@ -5,12 +5,18 @@ namespace BrainGames\Cli;
 use function cli\line;
 use function cli\prompt;
 
-function run(string $message, string $game)
+function execute(string $message, callable $step)
 {
     $error = false;
     $conf = \BrainGames\Conf\get();
-    $name = welcome($message);
-    $step = "$game\\step";
+
+    line('Welcome to the Brain Games!');
+    line($message);
+    line('');
+
+    $name = prompt('May I have your name?');
+    line("Hello, %s!", $name);
+    line('');
 
     for ($i = 0; $i < $conf['try']; ++$i) {
         $result = $step($conf);
@@ -22,18 +28,6 @@ function run(string $message, string $game)
     }
 
     showResult($error, $name);
-}
-
-function welcome(string $rules)
-{
-
-    line('Welcome to the Brain Games!');
-    line($rules);
-    line('');
-    $name = prompt('May I have your name?');
-    line("Hello, %s!", $name);
-    line('');
-    return $name;
 }
 
 function getAnswer(string $question)
