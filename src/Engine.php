@@ -5,7 +5,7 @@ namespace BrainGames\Engine;
 use function cli\line;
 use function cli\prompt;
 
-function playGame(string $message, callable $step)
+function playGame(string $message, callable $makeStep)
 {
     $success = true;
     $settings = \BrainGames\Settings\get();
@@ -19,7 +19,7 @@ function playGame(string $message, callable $step)
     line('');
 
     for ($i = 0; $i < $settings['attempsCount']; ++$i) {
-        $result = $step($settings);
+        $result = $makeStep($settings);
         $userAnswer = askQuestion($result['question']);
         if ($userAnswer != $result['answer']) {
             line("'{$userAnswer}' is wrong answer ;(. Correct answer was '{$result['answer']}'.");
