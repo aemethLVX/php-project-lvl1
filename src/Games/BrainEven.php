@@ -2,12 +2,12 @@
 
 namespace BrainGames\Games\BrainEven;
 
-use function BrainGames\Cli\execute;
+use function BrainGames\Engine\playGame;
 
 function run()
 {
-    $step = function ($conf) {
-        $question = rand($conf['from'], $conf['to']);
+    $makeStep = function ($settings) {
+        $question = rand($settings['from'], $settings['to']);
         $answer = isEven($question) ? 'yes' : 'no';
         return [
             'question' => $question,
@@ -17,14 +17,10 @@ function run()
 
     $message = 'Answer "yes" if the number is even, otherwise answer "no".';
     
-    execute($message, $step);
+    playGame($message, $makeStep);
 }
 
 function isEven(int $num)
 {
-    if ($num % 2 === 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return $num % 2 === 0;
 }

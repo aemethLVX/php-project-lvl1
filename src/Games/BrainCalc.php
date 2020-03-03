@@ -2,17 +2,17 @@
 
 namespace BrainGames\Games\BrainCalc;
 
-use function BrainGames\Cli\execute;
+use function BrainGames\Engine\playGame;
 
 function run()
 {
     $message = 'What is the result of the expression?';
 
-    $step = function ($conf) {
-        $first = rand($conf['from'], $conf['to']);
-        $second = rand($conf['from'], $conf['to']);
+    $makeStep = function ($settings) {
+        $first = rand($settings['from'], $settings['to']);
+        $second = rand($settings['from'], $settings['to']);
         $operations = ['+', '-', '*'];
-        $type = $operations[rand(0, count($operations) - 1)];
+        $type = $operations[array_rand($operations)];
 
         $question = "{$first} {$type} {$second}";
         $answer = calc($first, $second, $type);
@@ -22,7 +22,7 @@ function run()
         ];
     };
 
-    execute($message, $step);
+    playGame($message, $makeStep);
 }
 
 function calc(int $first, int $second, string $type)

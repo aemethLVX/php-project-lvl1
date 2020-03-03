@@ -2,15 +2,15 @@
 
 namespace BrainGames\Games\BrainGcd;
 
-use function BrainGames\Cli\execute;
+use function BrainGames\Engine\playGame;
 
 function run()
 {
     $message = 'Find the greatest common divisor of given numbers.';
 
-    $step = function ($conf) {
-        $first = rand($conf['from'], $conf['to']);
-        $second = rand($conf['from'], $conf['to']);
+    $makeStep = function ($settings) {
+        $first = rand($settings['from'], $settings['to']);
+        $second = rand($settings['from'], $settings['to']);
         $question = "{$first} {$second}";
         $answer = gcd($first, $second);
         return [
@@ -19,7 +19,7 @@ function run()
         ];
     };
 
-    execute($message, $step);
+    playGame($message, $makeStep);
 }
 
 function gcd(int $a, int $b)

@@ -1,14 +1,14 @@
 <?php
 
-namespace BrainGames\Cli;
+namespace BrainGames\Engine;
 
 use function cli\line;
 use function cli\prompt;
 
-function execute(string $message, callable $step)
+function playGame(string $message, callable $step)
 {
-    $error = false;
-    $conf = \BrainGames\Conf\get();
+    $success = true;
+    $settings = \BrainGames\Settings\get();
 
     line('Welcome to the Brain Games!');
     line($message);
@@ -18,19 +18,22 @@ function execute(string $message, callable $step)
     line("Hello, %s!", $name);
     line('');
 
-    for ($i = 0; $i < $conf['try']; ++$i) {
-        $result = $step($conf);
-        $userAnswer = getAnswer($result['question']);
-        if (!checkAnswer($userAnswer, $result['answer'])) {
-            $error = true;
+    for ($i = 0; $i < $settings['attempsCount']; ++$i) {
+        $result = $step($settings);
+        $userAnswer = askQuestion($result['question']);
+        if ($userAnswer != $result['answer']) {
+            line("'{$userAnswer}' is wrong answer ;(. Correct answer was '{$result['answer']}'.");
+            $success = false;
             break;
+        } else {
+            line('Correct!');
         }
     }
 
-    showResult($error, $name);
+    showResult($success, $name);
 }
 
-function getAnswer(string $question)
+function askQuestion(string $question)
 {
     line("Question: {$question}");
     return prompt('Your answer');

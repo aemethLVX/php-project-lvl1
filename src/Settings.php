@@ -1,11 +1,11 @@
 <?php
 
-namespace BrainGames\Conf;
+namespace BrainGames\Settings;
 
 function get()
 {
     return [
-        'try' => 3,
+        'attempsCount' => 3,
         'from' => 1,
         'to' => 50
     ];

@@ -2,20 +2,21 @@
 
 namespace BrainGames\Games\BrainProgression;
 
-use function BrainGames\Cli\execute;
+use function BrainGames\Engine\playGame;
 
 function run()
 {
     $message = 'What number is missing in the progression?';
 
-    $step = function ($conf) {
+    $makeStep = function ($settings) {
         $length = 10;
-        $diff = 2;
-        $start = rand($conf['from'], $conf['to']);
-        $removedKey = rand(0, $length - 1);
+        $diff = rand($settings['from'], $settings['to']);
+        $start = rand($settings['from'], $settings['to']);
+        $removedElementKey = rand(0, $length - 1);
+
         $progression = getProgression($start, $length, $diff);
-        $answer = $progression[$removedKey];
-        $progression[$removedKey] = '..';
+        $answer = $progression[$removedElementKey];
+        $progression[$removedElementKey] = '..';
         $question = implode(' ', $progression);
 
         return [
@@ -24,10 +25,10 @@ function run()
         ];
     };
 
-    execute($message, $step);
+    playGame($message, $makeStep);
 }
 
-function getProgression(int $start, int $length, int $diff)
+function getProgression(int $start, int $length, int $diff = 2)
 {
     $result = [];
     for ($i = 0; $i < $length; ++$i) {
