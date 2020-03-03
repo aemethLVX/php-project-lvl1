@@ -39,17 +39,6 @@ function askQuestion(string $question)
     return prompt('Your answer');
 }
 
-function checkAnswer(string $answer, string $result)
-{
-    if ($answer == $result) {
-        line('Correct!');
-        return true;
-    } else {
-        line("'{$answer}' is wrong answer ;(. Correct answer was '{$result}'.");
-        return false;
-    }
-}
-
 function showResult(bool $error, string $name)
 {
     if ($error) {
